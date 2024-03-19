@@ -40,6 +40,7 @@ if (preset == "fe") {
 
 if (preset == "be") {
   presets.push(await bePreset());
+  presets = presets.flat();
   done = beDone;
 }
 const url = `kodepandai/create-metroapp/presets/${presets.join("-")}#main`;
