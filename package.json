@@ -1,0 +1,34 @@
+{
+  "name": "create-metroapp",
+  "version": "0.0.1",
+  "description": "create metro app boilerplate",
+  "main": "index.js",
+  "bin": {
+    "create-metroapp": "./cli/index.js"
+  },
+  "files": [
+    "cli/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "boilerplate",
+    "app",
+    "metrocorp"
+  ],
+  "author": [
+    {
+      "name": "Akhmad Salafudin",
+      "email": "axmad386@gmail.com",
+      "url": "https://github.com/axmad386"
+    }
+  ],
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "degit": "^2.8.4",
+    "inquirer": "^9.2.16"
+  }
+}
