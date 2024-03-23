@@ -2,7 +2,7 @@ import inquirer from "inquirer";
 import { success } from "./util/logger.js";
 
 export async function bePreset() {
-  const { framework, orm } = await inquirer.prompt([
+  const { framework, format, orm } = await inquirer.prompt([
     {
       name: "framework",
       type: "list",
@@ -11,6 +11,21 @@ export async function bePreset() {
         {
           name: "NestJs",
           value: "nest",
+        },
+      ],
+    },
+    {
+      name: "format",
+      type: "list",
+      message: "Please select format",
+      choices: [
+        {
+          name: "ES Module",
+          value: "esm",
+        },
+        {
+          name: "CommonJS",
+          value: "cjs",
         },
       ],
     },
@@ -30,10 +45,10 @@ export async function bePreset() {
       ],
     },
   ]);
-  return [framework, orm];
+  return [framework, format, orm];
 }
 
-export function beDone(appName){
+export function beDone(appName) {
   success(`Done, your app is ready, please run this following command:
   - cd ${appName} && pnpm install
   - cp .env.example .env (setup your environment)
