@@ -6,6 +6,9 @@ export type UserExtractedQuery = ExtractedQuery<Prisma.UserWhereInput[]>;
 export interface UserFindAllParam extends UserExtractedQuery {
   query: FindUserQueryDto;
 }
-export type UserSearchParam = Partial<
-  Pick<User, 'name' | 'email' | 'username'>
->;
+export type UserSearchParam = {
+  search: Partial<Pick<User, 'name' | 'email' | 'username'>>;
+  not?: {
+    id: number;
+  };
+};

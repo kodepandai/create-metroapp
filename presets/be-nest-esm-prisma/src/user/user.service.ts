@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { FindUserQueryDto } from './dto';
+import { FindUserQueryDto, UpdateUserBodyDto } from './dto';
 import { UserRepository } from './user.repository';
 import { CreateUserBodyDto } from './dto/create-user.dto';
 import bcrypt from 'bcrypt';
@@ -15,14 +15,39 @@ export class UserService {
   async create(data: CreateUserBodyDto) {
     if (
       await this.userRepo.isExist({
-        username: data.username,
-        name: data.name,
-        email: data.email,
+        search: {
+          username: data.username,
+          name: data.name,
+          email: data.email,
+        },
       })
     ) {
       throw new HttpException('User already exist', HttpStatus.CONFLICT);
     }
     data.password = bcrypt.hashSync(data.password, 10);
     return await this.userRepo.create(data);
+  }
+
+  async update(id: number, { password, ...data }: UpdateUserBodyDto) {
+    if (
+      await this.userRepo.isExist({
+        search: {
+          username: data.username,
+          name: data.name,
+          email: data.email,
+        },
+        not: {
+          id,
+        },
+      })
+    ) {
+      throw new HttpException('User already exist', HttpStatus.CONFLICT);
+    }
+
+    if (password) {
+      password = bcrypt.hashSync(password, 10);
+    }
+
+    return await this.userRepo.update(id, { ...data, password });
   }
 }

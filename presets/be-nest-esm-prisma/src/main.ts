@@ -24,7 +24,7 @@ async function bootstrap() {
       app,
       new DocumentBuilder()
         .setTitle('Nest ESM Prisma Docs')
-        .setDescription('The Nest ESM Prisma API description')
+        .setDescription('The Nest ESM Prisma API Documentation')
         .addBearerAuth()
         .setVersion(version)
         .build(),

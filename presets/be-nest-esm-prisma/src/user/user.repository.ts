@@ -6,7 +6,7 @@ import type {
 import { Injectable } from '@nestjs/common';
 import { dotToObject } from '@utils';
 import { PrismaService } from 'src/prisma';
-import { FindUserQueryDto } from './dto';
+import { FindUserQueryDto, UpdateUserBodyDto } from './dto';
 import { CreateUserBodyDto } from './dto/create-user.dto';
 
 @Injectable()
@@ -71,9 +71,28 @@ export class UserRepository {
     return this.prisma.user.create({ data });
   }
 
-  async isExist({ username, name, email }: UserSearchParam): Promise<boolean> {
+  update(id: number, { password, ...data }: UpdateUserBodyDto) {
+    return this.prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        ...data,
+        password: password ? password : undefined,
+      },
+    });
+  }
+
+  async isExist({
+    search: { username, name, email },
+    not,
+  }: UserSearchParam): Promise<boolean> {
     const user = await this.prisma.user.findFirst({
       where: {
+        id: {
+          not: not?.id,
+        },
+        deleted_at: null,
         OR: [
           {
             username,
