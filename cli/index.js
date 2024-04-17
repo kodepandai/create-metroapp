@@ -2,6 +2,7 @@ import inquirer from "inquirer";
 import degit from "degit";
 import { beDone, bePreset } from "./be.js";
 import { warn, error } from "./util/logger.js";
+import { feDone, fePreset } from "./fe.js";
 
 const arg = process.argv.slice(2)[0];
 
@@ -34,8 +35,9 @@ const { preset, appName } = await inquirer.prompt([
 
 presets.push(preset);
 if (preset == "fe") {
-  warn("Preset Frontend not available for now");
-  process.exit(0);
+  presets.push(await fePreset());
+  presets = presets.flat();
+  done = feDone();
 }
 
 if (preset == "be") {
