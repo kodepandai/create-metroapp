@@ -50,4 +50,8 @@ export class UserService {
 
     return await this.userRepo.update(id, { ...data, password });
   }
+
+  async delete(id: number) {
+    return await this.userRepo.delete(id);
+  }
 }

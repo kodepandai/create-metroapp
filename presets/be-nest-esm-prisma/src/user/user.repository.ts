@@ -83,6 +83,17 @@ export class UserRepository {
     });
   }
 
+  delete(id: number) {
+    return this.prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        deleted_at: new Date(),
+      },
+    });
+  }
+
   async isExist({
     search: { username, name, email },
     not,

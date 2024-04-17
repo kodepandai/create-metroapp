@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -43,5 +44,13 @@ export class UserController {
     @Body() data: UpdateUserBodyDto,
   ): Promise<OneUserResponse> {
     return success(await this.userService.update(+id, data));
+  }
+
+  @Delete()
+  @ApiOkResponse({
+    type: OneUserResponse,
+  })
+  async delete(@Param('id') id: string): Promise<OneUserResponse> {
+    return success(await this.userService.delete(+id));
   }
 }
