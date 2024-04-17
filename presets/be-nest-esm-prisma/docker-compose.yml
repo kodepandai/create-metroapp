@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  be-nest-esm-prisma:
+    container_name: be-nest-esm-prisma-db
+    image: postgres:15
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: be-nest-esm-prisma-db
+      PGDATA: /var/lib/postgresql/data
+    networks:
+      be-nest-esm-prisma-net:
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    restart: unless-stopped
+  landlord-storage:
+    container_name: be-nest-esm-prisma-storage
+    image: minio/minio:latest
+    ports:
+      - 9010:9000
+      - 9011:9090
+    environment:
+      MINIO_ROOT_USER: ${STORAGE_ACCESS_KEY}
+      MINIO_ROOT_PASSWORD: ${STORAGE_SECRET_KEY}
+      MINIO_SERVER_URL: ${STORAGE_ENDPOINT}
+    networks:
+      be-nest-esm-prisma-net:
+    volumes:
+      - 'minio:/data/minio'
+    restart: unless-stopped
+    entrypoint: sh
+    command: -c 'mkdir -p /data/minio/${STORAGE_BUCKET} && minio server /data/minio --console-address ":9090"'
+networks:
+  be-nest-esm-prisma-net:
+    driver: bridge
+    ipam:
+      driver: default
+volumes:
+  postgres:
+  minio:
