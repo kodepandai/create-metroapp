@@ -3,15 +3,15 @@ import { SchemaDto } from '@types';
 import { paginateResponseDto, successResponseDto } from '@utils';
 import { z } from 'zod';
 
-const UserSchema = z.object({
+export const UserSchema = z.object({
   id: z.number(),
   name: z.string(),
   username: z.string(),
   email: z.string().email(),
   password: z.string().optional(),
   created_at: z.date(),
-  updated_at: z.date(),
-  deleted_at: z.date().nullable(),
+  updated_at: z.date().optional(),
+  deleted_at: z.date().nullish(),
 } satisfies SchemaDto<User>);
 
 const UserDetailSchema = UserSchema.pick({

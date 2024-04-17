@@ -1,11 +1,14 @@
 import { createZodDto } from '@anatine/zod-nestjs';
-import { ZodSchema } from 'zod/lib';
+import { ZodSchema, ZodTypeAny } from 'zod/lib';
 import { z } from 'zod';
 
-export const successResponseDto = (responseData: ZodSchema) =>
-  createZodDto(z.object({ message: z.string(), data: responseData }));
+export const successResponseDto = <Data extends ZodTypeAny = ZodSchema>(
+  responseData: Data,
+) => createZodDto(z.object({ message: z.string(), data: responseData }));
 
-export const paginateResponseDto = (responseData: ZodSchema) =>
+export const paginateResponseDto = <Data extends ZodTypeAny = ZodSchema>(
+  responseData: Data,
+) =>
   successResponseDto(
     z.object({
       limit: z.number().default(10),

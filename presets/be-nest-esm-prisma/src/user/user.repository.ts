@@ -1,8 +1,13 @@
-import type { UserExtractedQuery, UserFindAllParam } from './types';
+import type {
+  UserExtractedQuery,
+  UserFindAllParam,
+  UserSearchParam,
+} from './types';
 import { Injectable } from '@nestjs/common';
 import { dotToObject } from '@utils';
 import { PrismaService } from 'src/prisma';
 import { FindUserQueryDto } from './dto';
+import { CreateUserBodyDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UserRepository {
@@ -52,6 +57,36 @@ export class UserRepository {
         ],
       },
       orderBy: dotToObject(query.orderBy, query.orderDirection),
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        username: true,
+        created_at: true,
+      },
     });
+  }
+
+  create(data: CreateUserBodyDto) {
+    return this.prisma.user.create({ data });
+  }
+
+  async isExist({ username, name, email }: UserSearchParam): Promise<boolean> {
+    const user = await this.prisma.user.findFirst({
+      where: {
+        OR: [
+          {
+            username,
+          },
+          {
+            name,
+          },
+          {
+            email,
+          },
+        ],
+      },
+    });
+    return !!user;
   }
 }
