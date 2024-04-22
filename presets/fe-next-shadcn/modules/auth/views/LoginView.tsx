@@ -46,7 +46,6 @@ export default function LoginView() {
               placeholder="Email"
               desc="valid email address"
               required
-              error={form.formState.errors.email?.message}
             />
             <TextInput
               control={form.control}

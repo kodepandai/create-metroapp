@@ -27,7 +27,6 @@ const InputWrapper = <F extends FieldValues, N extends FieldPath<F>>({
   children,
   label,
   required,
-  error,
   ...props
 }: React.PropsWithChildren<InputWrapperProps<F, N>>) => {
   return (
@@ -38,7 +37,7 @@ const InputWrapper = <F extends FieldValues, N extends FieldPath<F>>({
           {label && <FormLabel>{label}{required && <span className="text-destructive"> *</span>}</FormLabel>}
           <FormControl>{children}</FormControl>
           <FormDescription>{desc}</FormDescription>
-          {error && <FormMessage>{error}</FormMessage>}
+          <FormMessage/>
         </FormItem>
       )}
     />
