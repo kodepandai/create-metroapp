@@ -5,17 +5,24 @@ import { Button } from "shared/components/ui/button";
 import { useForm } from "react-hook-form";
 import { Form } from "shared/components/ui/form";
 import config from "config";
+import { LoginParam, authenticate } from "../auth.service";
+import { useRouter } from "next/navigation";
 
 export default function LoginView() {
-  const form = useForm({
+  const router = useRouter();
+  const form = useForm<LoginParam>({
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = async (data: any) => {
-    console.log({ data });
+  const onSubmit = async (data: LoginParam) => {
+    form.setError("email", { type: "validate", message: "Email harus diisi" });
+    const isAuthenticated = authenticate(data);
+    // if (isAuthenticated) {
+    //   router.replace("/");
+    // }
   };
 
   return (
@@ -37,7 +44,9 @@ export default function LoginView() {
               name="email"
               label="Email"
               placeholder="Email"
+              desc="valid email address"
               required
+              error={form.formState.errors.email?.message}
             />
             <TextInput
               control={form.control}

@@ -19,6 +19,7 @@ export interface InputWrapperProps<
 > extends UseControllerProps<F, N> {
   desc?: string;
   label?: string;
+  error?: string;
   required?: boolean;
 }
 const InputWrapper = <F extends FieldValues, N extends FieldPath<F>>({
@@ -26,17 +27,18 @@ const InputWrapper = <F extends FieldValues, N extends FieldPath<F>>({
   children,
   label,
   required,
+  error,
   ...props
 }: React.PropsWithChildren<InputWrapperProps<F, N>>) => {
   return (
     <FormField
       {...props}
-      render={() => (
-        <FormItem>
+    render={() => (
+        <FormItem className="space-y-1">
           {label && <FormLabel>{label}{required && <span className="text-destructive"> *</span>}</FormLabel>}
           <FormControl>{children}</FormControl>
           <FormDescription>{desc}</FormDescription>
-          <FormMessage />
+          {error && <FormMessage>{error}</FormMessage>}
         </FormItem>
       )}
     />
