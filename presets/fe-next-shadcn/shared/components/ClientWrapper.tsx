@@ -1,6 +1,6 @@
 "use client";
 import { Provider } from "jotai";
-import { store } from "shared/store";
+import { store } from "shared/stores";
 
 export default function ClientWrapper({
   children,

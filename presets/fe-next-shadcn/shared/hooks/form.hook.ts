@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useEffect } from "react";
 import { FieldValues, useForm as baseUseForm } from "react-hook-form";
-import { errorStore } from "shared/store";
+import { errorStore } from "shared/stores";
 export const useForm = <
   TFieldValues extends FieldValues = FieldValues,
   TContext = any,

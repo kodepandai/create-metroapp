@@ -1,4 +1,4 @@
-import { RESET_ERROR_STORE, errorStore, store } from "shared/store";
+import { RESET_ERROR_STORE, errorStore, store } from "shared/stores";
 import { authStore } from "./stores";
 
 export interface LoginParam {
