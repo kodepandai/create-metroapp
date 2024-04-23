@@ -2,14 +2,12 @@ import config from "config";
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import Cookie from "js-cookie";
-interface User {
-  username: string;
-  email: string;
-}
+import { UserProfile } from "shared/api/BaseApi";
+
 
 interface AuthStore {
   token?: string;
-  user?: User;
+  user?: UserProfile
 }
 
 export const authStore = atomWithStorage<AuthStore>(

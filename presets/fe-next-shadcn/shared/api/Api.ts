@@ -1,5 +1,6 @@
-import { AxiosResponse, ResponseType } from 'axios'
-import {ApiConfig, Api as BaseApi, ContentType, FullRequestParams} from './BaseApi'
+import { AxiosError, AxiosResponse, ResponseType } from 'axios'
+import { ApiConfig, Api as BaseApi, ContentType, FullRequestParams } from './BaseApi'
+import { store, errorStore } from 'shared/stores';
 
 export class Api<SecurityDataType extends unknown> extends BaseApi<SecurityDataType> {
     private readonly _format?: Readonly<ResponseType>;
@@ -8,11 +9,11 @@ export class Api<SecurityDataType extends unknown> extends BaseApi<SecurityDataT
         this._format = config.format;
     }
 
-    public request = async <T = any, _E = any>({
+    public request = <T = any, _E = any>({
         ...params
-      }: FullRequestParams): Promise<AxiosResponse<T>> => {
+    }: FullRequestParams): Promise<AxiosResponse<T>> => {
         try {
-            return await this.instance.request({
+            return this.instance.request({
                 ...this.mergeRequestParams(params),
                 headers: {
                     ...(params.headers || {}),
@@ -25,9 +26,25 @@ export class Api<SecurityDataType extends unknown> extends BaseApi<SecurityDataT
                     : params.body,
                 url: params.path,
             })
-        } catch (error) {
-            console.log("error ngab")
-            throw error;
+        } catch (err) {
+            if (err instanceof AxiosError) {
+                const { response } = err;
+                if (response?.status === 422) {
+                    store.set(errorStore, {
+                        formError: response.data.errors,
+                        error: {
+                            message: response.data.message,
+                        }
+                    })
+                } else {
+                    store.set(errorStore, {
+                        error: {
+                            message: response?.data.message,
+                        }
+                    })
+                }
+            }
+            throw (err);
         }
-      };
+    };
 }

@@ -4,24 +4,37 @@ import Image from "next/image";
 import { Button } from "shared/components/ui/button";
 import { Form } from "shared/components/ui/form";
 import config from "config";
-import { LoginParam, authenticate } from "../auth.service";
-import { useRouter } from "next/navigation";
 import { useForm } from "shared/hooks";
+import { useMutation } from "react-query";
+import { api } from "shared/utils/api.utils";
+import { LoginBodyDto } from "shared/api/BaseApi";
+import { useSetAtom } from "jotai";
+import { authStore } from "../stores";
+import { useRouter } from "next/navigation";
 
 export default function LoginView() {
+  const {auth} = api();
+  const setAuth = useSetAtom(authStore);
   const router = useRouter();
-  const form = useForm<LoginParam>({
+  
+  const {mutate} = useMutation(auth.authControllerLogin, {
+    onSuccess: ({data}) => {
+     setAuth({
+      token: data.token,
+     })
+     router.replace('/')
+    }
+  })
+
+  const form = useForm<LoginBodyDto>({
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = async (data: LoginParam) => {
-    const isAuthenticated = authenticate(data);
-    // if (isAuthenticated) {
-    //   router.replace("/");
-    // }
+  const onSubmit = async (data: LoginBodyDto) => {
+    mutate(data)
   };
 
   return (
@@ -43,7 +56,7 @@ export default function LoginView() {
               name="email"
               label="Email"
               placeholder="Email"
-              desc="valid email address"
+              desc="input valid email address"
             />
             <TextInput
               control={form.control}
