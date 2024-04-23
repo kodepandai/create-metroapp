@@ -25,7 +25,7 @@ export default function LoginView() {
   };
 
   return (
-    <div className="h-screen grid grid-cols-1 md:grid-cols-2 grid-rows-1">
+    <div className="h-screen grid grid-cols-1 lg:grid-cols-2 grid-rows-1">
       <div className="flex flex-col px-4">
         <Form {...form}>
           <form
@@ -33,7 +33,7 @@ export default function LoginView() {
             onSubmit={form.handleSubmit(onSubmit)}
           >
             <div className="flex flex-col gap-2">
-              <span className="font-bold text-4xl">Masuk</span>
+              <span className="font-bold text-3xl">Masuk</span>
               <span>
                 Selamat datang di <b>{config.appName}</b>
               </span>
@@ -44,7 +44,6 @@ export default function LoginView() {
               label="Email"
               placeholder="Email"
               desc="valid email address"
-              // required
             />
             <TextInput
               control={form.control}
@@ -52,13 +51,12 @@ export default function LoginView() {
               name="password"
               label="Password"
               placeholder="Password"
-              // required
             />
             <Button type="submit">Masuk</Button>
           </form>
         </Form>
       </div>
-      <div className="inset-0 object-cover absolute md:relative">
+      <div className="inset-0 object-cover absolute lg:relative">
         <Image
           src="/bg-signin.png"
           width="700"

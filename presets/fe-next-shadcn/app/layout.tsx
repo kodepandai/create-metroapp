@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import ClientWrapper from "shared/components/ClientWrapper";
 import "shared/styles/main.css";
+import "shared/styles/utopia.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

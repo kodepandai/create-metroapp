@@ -73,6 +73,19 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
+    fontSize: {
+      xs: "var(--size--2)",
+      sm: "var(--size--1)",
+      base: "var(--size-0)",
+      lg: "var(--size-1)",
+      xl: "var(--size-2)",
+      "2xl": "var(--size-3)",
+      "3xl": "var(--size-4)",
+      "4xl": "var(--size-5)",
+      "5xl": "var(--size-6)",
+      "6xl": "var(--size-7)",
+      "7xl": "var(--size-8)",
+    }
   },
   plugins: [tailwindAnimate],
 } satisfies Config;
