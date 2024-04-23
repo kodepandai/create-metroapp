@@ -1,3 +1,4 @@
+import config from "config";
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import Cookie from "js-cookie";
@@ -12,7 +13,7 @@ interface AuthStore {
 }
 
 export const authStore = atomWithStorage<AuthStore>(
-  "metro.auth",
+  config.authStore,
   {
     token: undefined,
     user:undefined

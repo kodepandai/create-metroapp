@@ -2,11 +2,11 @@
 import { TextInput } from "shared/components/ui/text-input";
 import Image from "next/image";
 import { Button } from "shared/components/ui/button";
-import { useForm } from "react-hook-form";
 import { Form } from "shared/components/ui/form";
 import config from "config";
 import { LoginParam, authenticate } from "../auth.service";
 import { useRouter } from "next/navigation";
+import { useForm } from "shared/hooks";
 
 export default function LoginView() {
   const router = useRouter();
@@ -18,7 +18,6 @@ export default function LoginView() {
   });
 
   const onSubmit = async (data: LoginParam) => {
-    form.setError("email", { type: "validate", message: "Email harus diisi" });
     const isAuthenticated = authenticate(data);
     // if (isAuthenticated) {
     //   router.replace("/");
@@ -45,7 +44,7 @@ export default function LoginView() {
               label="Email"
               placeholder="Email"
               desc="valid email address"
-              required
+              // required
             />
             <TextInput
               control={form.control}
@@ -53,7 +52,7 @@ export default function LoginView() {
               name="password"
               label="Password"
               placeholder="Password"
-              required
+              // required
             />
             <Button type="submit">Masuk</Button>
           </form>
