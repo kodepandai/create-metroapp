@@ -6,7 +6,7 @@ import { Form } from "shared/components/ui/form";
 import config from "config";
 import { useForm } from "shared/hooks";
 import { useMutation } from "react-query";
-import { api } from "shared/utils/api.utils";
+import { api } from "shared/utils";
 import { LoginBodyDto } from "shared/api/BaseApi";
 import { useSetAtom } from "jotai";
 import { authStore } from "../stores";

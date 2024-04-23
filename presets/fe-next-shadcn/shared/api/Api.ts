@@ -1,11 +1,18 @@
-import { AxiosError, AxiosResponse, ResponseType } from 'axios'
-import { ApiConfig, Api as BaseApi, ContentType, FullRequestParams } from './BaseApi'
-import { store, errorStore } from 'shared/stores';
+import { AxiosResponse, ResponseType } from "axios";
+import {
+    ApiConfig,
+    Api as BaseApi,
+    ContentType,
+    FullRequestParams,
+} from "./BaseApi";
+import { handleApiError } from "shared/utils";
 
-export class Api<SecurityDataType extends unknown> extends BaseApi<SecurityDataType> {
+export class Api<
+    SecurityDataType extends unknown,
+> extends BaseApi<SecurityDataType> {
     private readonly _format?: Readonly<ResponseType>;
     constructor(config: ApiConfig<SecurityDataType> = {}) {
-        super(config)
+        super(config);
         this._format = config.format;
     }
 
@@ -17,34 +24,23 @@ export class Api<SecurityDataType extends unknown> extends BaseApi<SecurityDataT
                 ...this.mergeRequestParams(params),
                 headers: {
                     ...(params.headers || {}),
-                    ...(params.type && params.type !== ContentType.FormData ? { "Content-Type": params.type } : {}),
+                    ...(params.type && params.type !== ContentType.FormData
+                        ? { "Content-Type": params.type }
+                        : {}),
                 },
                 params: params.query,
                 responseType: params.format || this._format || undefined,
-                data: params.type === ContentType.Text && params.body && true && typeof params.body !== "string"
-                    ? JSON.stringify(params.body)
-                    : params.body,
+                data:
+                    params.type === ContentType.Text &&
+                        params.body &&
+                        true &&
+                        typeof params.body !== "string"
+                        ? JSON.stringify(params.body)
+                        : params.body,
                 url: params.path,
-            })
+            });
         } catch (err) {
-            if (err instanceof AxiosError) {
-                const { response } = err;
-                if (response?.status === 422) {
-                    store.set(errorStore, {
-                        formError: response.data.errors,
-                        error: {
-                            message: response.data.message,
-                        }
-                    })
-                } else {
-                    store.set(errorStore, {
-                        error: {
-                            message: response?.data.message,
-                        }
-                    })
-                }
-            }
-            throw (err);
+            return handleApiError(err);
         }
     };
 }
