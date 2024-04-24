@@ -1,3 +1,4 @@
+import { Dashboard } from "shared/components/AdminDashboard";
 import AdminWrapper from "shared/components/AdminWrapper";
 
 export default function AdminLayout({
@@ -5,5 +6,7 @@ export default function AdminLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <AdminWrapper>{children}</AdminWrapper>;
+  return <AdminWrapper>
+    <Dashboard></Dashboard>
+  </AdminWrapper>;
 }
