@@ -27,13 +27,13 @@ export const handleApiError = (err: unknown) => {
             store.set(errorStore, {
                 formError: response.data.errors,
                 error: {
-                    message: response.data.message,
+                    message: response.data.message|| err.message
                 },
             });
         } else {
             store.set(errorStore, {
                 error: {
-                    message: response?.data.message,
+                    message: response?.data.message || err.message
                 },
             });
         }

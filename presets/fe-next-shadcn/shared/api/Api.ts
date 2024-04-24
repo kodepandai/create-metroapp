@@ -32,9 +32,7 @@ export class Api<
                 responseType: params.format || this._format || undefined,
                 data:
                     params.type === ContentType.Text &&
-                        params.body &&
-                        true &&
-                        typeof params.body !== "string"
+                    params.body && typeof params.body !== "string"
                         ? JSON.stringify(params.body)
                         : params.body,
                 url: params.path,

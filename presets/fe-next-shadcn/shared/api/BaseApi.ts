@@ -199,12 +199,22 @@ export class Api<
           new AxiosError("Validation failed", "422", undefined, undefined, {
             data: {
               errors,
+              // message: "Unprocessable Entity"
             },
             status: 422,
           } as any),
         );
       }
-      // TODO: ini nanti digenerate dari openapi
+      if(!(email === "admin@mail.com" && password === "admin")){
+        handleApiError(
+          new AxiosError("Validation failed", "401", undefined, undefined, {
+            data: {
+              message: "Username atau password salah"
+            },
+            status: 401,
+          } as any),
+        );
+      }
       return {
         data: {
           token: "inidummytoken",
