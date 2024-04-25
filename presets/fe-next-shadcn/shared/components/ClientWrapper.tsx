@@ -1,8 +1,7 @@
 "use client";
 import { Provider } from "jotai";
 import { store } from "shared/stores";
-import { QueryClientProvider } from "react-query";
-import { queryClient } from "shared/utils/api.utils";
+import { QueryClient, QueryClientProvider } from "react-query";
 import ErrorWrapper from "./ErrorWrapper";
 
 export default function ClientWrapper({
@@ -10,6 +9,7 @@ export default function ClientWrapper({
 }: {
   children: React.ReactNode;
 }) {
+  const queryClient = new QueryClient();
   return (
     <Provider store={store}>
       <ErrorWrapper>

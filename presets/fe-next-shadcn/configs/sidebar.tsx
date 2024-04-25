@@ -1,5 +1,5 @@
 import { cva } from "class-variance-authority";
-import { Home, Package, ShoppingCart } from "lucide-react";
+import { Home, Package, Package2Icon, ShoppingCart } from "lucide-react";
 import { cn } from "shared/utils";
 
 export interface SidebarMenu {
@@ -20,7 +20,8 @@ const menuVariant = cva("h-5 w-5", {
   },
 });
 
-export const sidebar = {
+export const sidebar  = {
+  brand: <Package2Icon className="h-6 w-6"/>,
   navigations: [
     {
       label: "Dashboard",
@@ -28,16 +29,11 @@ export const sidebar = {
       icon: (active) => <Home className={cn(menuVariant({ active }))} />,
     },
     {
-      label: "Order",
+      label: "Form Example",
       href: "/admin/order",
       icon: (active) => (
         <ShoppingCart className={cn(menuVariant({ active }))} />
       ),
-    },
-    {
-      label: "Products",
-      href: "/admin/product",
-      icon: (active) => <Package className={cn(menuVariant({ active }))} />,
     },
   ] satisfies SidebarMenu[],
 } as const;
