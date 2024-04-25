@@ -1,17 +1,17 @@
 import { useAtomValue } from "jotai";
 import { useEffect } from "react";
-import { FieldValues, useForm as baseUseForm } from "react-hook-form";
+import { FieldValues, UseFormProps, useForm as baseUseForm } from "react-hook-form";
 import { errorStore } from "shared/stores";
 export const useForm = <
   TFieldValues extends FieldValues = FieldValues,
   TContext = any,
   TTransformedValues extends FieldValues | undefined = undefined,
 >(
-  props: Parameters<typeof baseUseForm>[0],
+  props: UseFormProps<TFieldValues,TContext>
 ) => {
   const error = useAtomValue(errorStore);
   const form = baseUseForm<TFieldValues, TContext, TTransformedValues>(
-    props as any,
+    props,
   );
   useEffect(() => {
     if (error.formError) {

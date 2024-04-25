@@ -1,7 +1,7 @@
 import { Button } from "shared/components/ui/button";
 import { Header, ContentWrapper } from "shared/components/dashboard";
 
-export default function age() {
+export default function DashboardPage() {
   return (
     <>
       <Header title="Dashbboard" />
