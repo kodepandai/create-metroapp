@@ -1,4 +1,3 @@
-import AdminWrapper from "shared/components/AdminWrapper";
 import { Layout } from "shared/components/dashboard";
 
 export default function AdminLayout({
@@ -7,8 +6,6 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <AdminWrapper>
       <Layout>{children}</Layout>
-    </AdminWrapper>
   );
 }
