@@ -37,7 +37,7 @@ presets.push(preset);
 if (preset == "fe") {
   presets.push(await fePreset());
   presets = presets.flat();
-  done = feDone();
+  done = feDone;
 }
 
 if (preset == "be") {
