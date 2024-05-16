@@ -7,7 +7,7 @@ import { feDone, fePreset } from "./fe.js";
 const arg = process.argv.slice(2)[0];
 
 let presets = [];
-let done = () => { };
+let done = () => {};
 
 const { preset, appName } = await inquirer.prompt([
   {
@@ -46,6 +46,7 @@ if (preset == "be") {
   done = beDone;
 }
 const url = `kodepandai/create-metroapp/presets/${presets.join("-")}#main`;
+console.log({ url });
 try {
   const emitter = degit(url, {
     cache: false,

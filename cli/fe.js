@@ -15,7 +15,7 @@ export async function fePreset() {
       ],
     },
     {
-      name: "UI Library",
+      name: "ui",
       type: "list",
       message: "Plase select UI Library",
       choices: [
