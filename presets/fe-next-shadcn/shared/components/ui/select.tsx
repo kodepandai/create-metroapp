@@ -1,8 +1,7 @@
 "use client";
 
-import React, {InputHTMLAttributes, useEffect} from "react";
+import React, { InputHTMLAttributes, useEffect, useRef } from "react";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-
 import { cn } from "shared/utils";
 import { Button } from "shared/components/ui/button";
 import {
@@ -39,14 +38,16 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
   ) => {
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState(defaultValue);
-    useEffect(()=>{
-      props.onChange?.({target: {value}} as any)
-    },[value, props])
+    useEffect(() => {
+      props.onChange?.({ target: { value } } as any);
+    }, [value]);
+    const wrapperRef = useRef<HTMLButtonElement>(null);
     return (
       <Popover open={open} onOpenChange={setOpen}>
-        <input {...props} hidden ref={ref} value={value}/>
+        <input {...props} hidden ref={ref} value={value} />
         <PopoverTrigger asChild>
           <Button
+            ref={wrapperRef}
             variant="outline"
             role="combobox"
             aria-expanded={open}
@@ -58,7 +59,10 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
             <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-full p-0">
+        <PopoverContent
+          className="p-0"
+          style={{ width: wrapperRef.current?.clientWidth }}
+        >
           <Command>
             <CommandInput placeholder={placeholder} className="h-9" />
             <CommandEmpty>Not found.</CommandEmpty>
