@@ -4,7 +4,6 @@ import { Form } from "shared/components/ui/form";
 import { useForm } from "shared/hooks";
 import { TextInput } from "shared/components/ui/text-input";
 import { Button } from "shared/components/ui/button";
-import { Select } from "shared/components/ui/select";
 import { SelectInput } from "shared/components/ui/select-input";
 
 export default function FormExamplePage() {

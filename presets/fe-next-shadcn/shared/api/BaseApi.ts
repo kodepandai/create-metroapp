@@ -205,7 +205,7 @@ export class Api<
           } as any),
         );
       }
-      if(!(email === "admin@mail.com" && password === "admin")){
+      if (!(email === "admin@mail.com" && password === "password")) {
         handleApiError(
           new AxiosError("Validation failed", "401", undefined, undefined, {
             data: {

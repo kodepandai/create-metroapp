@@ -1,8 +1,15 @@
-export default function ContentWrapper({ children }: React.PropsWithChildren) {
+import { cn } from "shared/utils";
+
+export default function ContentWrapper({
+    children,
+    className,
+}: React.PropsWithChildren<{ className?: string }>) {
     return (
         <div
-            className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm"
-            x-chunk="dashboard-02-chunk-1"
+            className={cn(
+                "flex flex-1 rounded-lg border border-dashed shadow-sm p-2",
+                className,
+            )}
         >
             {children}
         </div>

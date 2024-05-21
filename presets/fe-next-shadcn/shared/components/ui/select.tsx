@@ -27,17 +27,9 @@ export interface SelectProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Select = React.forwardRef<HTMLInputElement, SelectProps>(
-  (
-    {
-      value: defaultValue = "",
-      options,
-      placeholder = "Select Value",
-      ...props
-    },
-    ref,
-  ) => {
+  ({ options, placeholder = "Select Value", ...props }, ref) => {
     const [open, setOpen] = React.useState(false);
-    const [value, setValue] = React.useState(defaultValue);
+    const [value, setValue] = React.useState(props.value);
     useEffect(() => {
       props.onChange?.({ target: { value } } as any);
     }, [value]);
