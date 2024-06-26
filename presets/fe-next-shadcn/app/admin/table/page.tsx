@@ -19,7 +19,6 @@ export default function FormExamplePage() {
   const [data, setData] = useState<Post[]>([]);
   // simulate get data
   const getData = async () => {
-    console.log("xx");
     const res = await axios.get<Post[]>(
       "https://jsonplaceholder.typicode.com/posts",
     );

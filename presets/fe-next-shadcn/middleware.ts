@@ -1,8 +1,7 @@
-import config from "config";
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
-  let storage = request.cookies.get(config.authStore);
+  let storage = request.cookies.get("authStore");
 
   if (request.nextUrl.pathname.startsWith("/login")) {
     if (!storage) {

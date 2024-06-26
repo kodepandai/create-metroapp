@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { Bell, CircleUser, Menu, Search } from "lucide-react";
 
@@ -21,8 +22,18 @@ import { Input } from "shared/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "shared/components/ui/sheet";
 import config from "config";
 import Sidebar from "./Sidebar";
+import { useSetAtom } from "jotai";
+import { authStore } from "modules/auth/stores";
+import { RESET } from "jotai/utils";
+import { useRouter } from "next/navigation";
 
 export default function Layout({ children }: React.PropsWithChildren) {
+  const setAuth = useSetAtom(authStore);
+  const router = useRouter();
+  const signOut = ()=>{
+    setAuth(RESET);
+    router.replace("/login");
+  }
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-muted/40 md:block">
@@ -127,7 +138,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={signOut}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </header>

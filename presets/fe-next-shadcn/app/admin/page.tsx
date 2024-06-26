@@ -5,8 +5,8 @@ export default function DashboardPage() {
   return (
     <>
       <Header title="Dashbboard" />
-      <ContentWrapper>
-        <div className="flex flex-col items-center gap-1 text-center">
+      <ContentWrapper className="flex justify-center items-center">
+        <div className="flex flex-col">
           <h3 className="text-2xl font-bold tracking-tight">
             You have no products
           </h3>

@@ -1,12 +1,11 @@
 import config from "config";
 import { Api } from "shared/api/Api";
-import Cookie from "js-cookie";
 import { AxiosError } from "axios";
 import { store, errorStore } from "shared/stores";
+import { authStore } from "modules/auth/stores";
 
 export const api = () => {
-    const storage = Cookie.get(config.authStore) || "{}";
-    const token = JSON.parse(storage)?.token;
+    const token = store.get(authStore).token;
 
     return new Api({
         baseURL: config.baseUrl,

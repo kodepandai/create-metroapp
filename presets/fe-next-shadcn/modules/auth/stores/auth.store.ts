@@ -1,4 +1,3 @@
-import config from "config";
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 import Cookie from "js-cookie";
@@ -8,7 +7,7 @@ interface AuthStore {
 }
 
 export const authStore = atomWithStorage<AuthStore>(
-  config.authStore,
+  "authStore",
   {
     token: undefined,
   },
@@ -32,5 +31,8 @@ export const authStore = atomWithStorage<AuthStore>(
       }
     },
   },
+  {
+    getOnInit: true,
+  }
 );
 export const isAuthenticateStore = atom((get) => !!get(authStore).token);

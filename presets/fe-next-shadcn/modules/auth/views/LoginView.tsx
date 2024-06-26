@@ -56,7 +56,7 @@ export default function LoginView() {
               name="email"
               label="Email"
               placeholder="Email"
-              desc="input valid email address"
+              desc="for demo: admin@mail.comm"
             />
             <TextInput
               control={form.control}
@@ -64,6 +64,7 @@ export default function LoginView() {
               name="password"
               label="Password"
               placeholder="Password"
+              desc="for demo: password"
             />
             <Button type="submit">Masuk</Button>
           </form>
